@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LK Tours | Discover the Beauty of Sri Lanka</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lk: {
+                            primary: '#0F766E',    /* Teal Green */
+                            secondary: '#0D9488',  /* Light Teal */
+                            accent: '#F59E0B',     /* Sandy Gold */
+                            sand: '#FDE68A',       /* Light Sand */
+                            dark: '#134E4A',       /* Dark Green */
+                            light: '#F0FDFA'       /* Very Light Teal */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-slider {
+            animation: slideChange 15s infinite;
+        }
+        
+        @keyframes slideChange {
+            0%, 33% { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1588258525932-2c111673a38b?w=1920'); }
+            34%, 66% { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1562698013-ac58e88e9852?w=1920'); }
+            67%, 100% { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=1920'); }
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-scrolled {
+            background-color: rgba(15, 118, 110, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form validation styles */
+        .error {
+            border-color: #EF4444 !important;
+        }
+        .error-message {
+            color: #EF4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Image hover zoom */
+        .img-zoom {
+            overflow: hidden;
+        }
+        .img-zoom img {
+            transition: transform 0.5s ease;
+        }
+        .img-zoom:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent text-white py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-lk-accent rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    <i class="fas fa-palm-tree"></i>
+                </div>
+                <span class="text-2xl font-serif font-bold tracking-wide">LK Tours</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#home" class="hover:text-lk-accent transition-colors">Home</a>
+                <a href="#tours" class="hover:text-lk-accent transition-colors">Tours</a>
+                <a href="#destinations" class="hover:text-lk-accent transition-colors">Destinations</a>
+                <a href="#about" class="hover:text-lk-accent transition-colors">About</a>
+                <a href="#contact" class="hover:text-lk-accent transition-colors">Contact</a>
+                <a href="#booking" class="bg-lk-accent text-white px-6 py-2 rounded-full font-bold hover:bg-yellow-500 transition-all transform hover:scale-105">
+                    Book Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-lk-primary absolute w-full top-full left-0 shadow-lg">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#home" class="mobile-link hover:text-lk-accent">Home</a>
+                <a href="#tours" class="mobile-link hover:text-lk-accent">Tours</a>
+                <a href="#destinations" class="mobile-link hover:text-lk-accent">Destinations</a>
+                <a href="#about" class="mobile-link hover:text-lk-accent">About</a>
+                <a href="#contact" class="mobile-link hover:text-lk-accent">Contact</a>
+                <a href="#booking" class="bg-lk-accent text-white px-6 py-2 rounded-full text-center font-bold">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center hero-slider bg-cover bg-center bg-no-repeat bg-fixed">
+        <div class="absolute inset-0 bg-black/40"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10 text-white">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 animate-fade-in">
+                Discover the Beauty of <br>
+                <span class="text-lk-accent">Sri Lanka</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 font-light max-w-2xl mx-auto">
+                Experience pristine beaches, ancient heritage, and wildlife adventures in the pearl of the Indian Ocean
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#tours" class="bg-lk-accent text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-500 transition-all transform hover:scale-105 shadow-lg">
+                    Explore Tours
+                </a>
+                <a href="#booking" class="bg-white text-lk-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg">
+                    Book Your Trip
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#tours" class="text-white text-3xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Tours Section -->
+    <section id="tours" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-lk-primary font-bold tracking-wider uppercase text-sm">Our Packages</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-800 mt-2">Popular Tour Packages</h2>
+                <div class="w-24 h-1 bg-lk-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="tours-grid">
+                <!-- Tour cards injected via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="py-20 bg-lk-light">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-lk-primary font-bold tracking-wider uppercase text-sm">Must Visit</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-gray-800 mt-2">Top Destinations</h2>
+                <div class="w-24 h-1 bg-lk-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Destination Slider -->
+            <div class="relative overflow-hidden">
+                <div class="flex transition-transform duration-500 ease-in-out" id="destination-slider">
+                    <!-- Destinations injected via JavaScript -->
+                </div>
+                
+                <!-- Slider Controls -->
+                <button onclick="moveSlider(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg text-lk-primary text-xl transition-all">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="moveSlider(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-3 rounded-full shadow-lg text-lk-primary text-xl transition-all">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Dots Indicator -->
+            <div class="flex justify-center mt-6 gap-2" id="slider-dots"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-4 border-lk-accent rounded-2xl"></div>
+                    <img src="https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800" alt="About LK Tours" class="relative rounded-2xl shadow-2xl w-full object-cover h-[500px]">
+                    
+                    <!-- Experience Badge -->
+                    <div class="absolute -bottom-6 -right-6 bg-lk-primary text-white p-6 rounded-2xl shadow-xl">
+                        <div class="text-4xl font-bold">15+</div>
+                        <div class="text-sm">Years Experience</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <span class="text-lk-primary font-bold tracking-wider uppercase text-sm">About Us</span>
+                    <h2 class="text-4xl font-serif font-bold text-gray-800 mt-2 mb-6">Your Trusted Travel Partner in Sri Lanka</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        LK Tours is a premier tour operator dedicated to showcasing the best of Sri Lanka. Founded with a passion for travel and a deep love for our island home, we specialize in creating unforgettable experiences for travelers from around the world.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Our mission is simple: to help travelers explore Sri Lanka easily, safely, and authentically. From the misty mountains of Ella to the golden beaches of the South, we curate journeys that reveal the true spirit of our paradise island.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-lk-light rounded-full flex items-center justify-center text-lk-primary">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">5000+</div>
+                                <div class="text-sm text-gray-500">Happy Travelers</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-lk-light rounded-full flex items-center justify-center text-lk-primary">
+                                <i class="fas fa-map-marked-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">50+</div>
+                                <div class="text-sm text-gray-500">Destinations</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-lk-light rounded-full flex items-center justify-center text-lk-primary">
+                                <i class="fas fa-award text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">Award</div>
+                                <div class="text-sm text-gray-500">Winning Service</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-lk-light rounded-full flex items-center justify-center text-lk-primary">
+                                <i class="fas fa-headset text-xl"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">24/7</div>
+                                <div class="text-sm text-gray-500">Support</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-20 bg-lk-primary text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="text-lk-accent font-bold tracking-wider uppercase text-sm">Book Your Adventure</span>
+                    <h2 class="text-4xl font-serif font-bold mt-2">Start Your Journey</h2>
+                    <p class="text-teal-100 mt-4">Fill out the form below and we'll get back to you within 24 hours</p>
+                </div>
+
+                <form id="booking-form" class="bg-white rounded-2xl p-8 md:p-12 text-gray-800 shadow-2xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all" placeholder="John Doe">
+                            <span class="error-message">Please enter your name</span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all" placeholder="john@example.com">
+                            <span class="error-message">Please enter a valid email</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all" placeholder="+94 77 123 4567">
+                            <span class="error-message">Please enter your phone number</span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Tour Package *</label>
+                            <select name="tour" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all">
+                                <option value="">Choose a package...</option>
+                                <option value="beach">Beach Paradise Tour</option>
+                                <option value="wildlife">Wildlife Safari Adventure</option>
+                                <option value="cultural">Cultural Heritage Tour</option>
+                                <option value="adventure">Adventure & Hiking</option>
+                                <option value="custom">Custom Package</option>
+                            </select>
+                            <span class="error-message">Please select a tour package</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Number of People *</label>
+                            <input type="number" name="people" min="1" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all" placeholder="2">
+                            <span class="error-message">Please enter number of travelers</span>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Travel Date *</label>
+                            <input type="date" name="date" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all">
+                            <span class="error-message">Please select a travel date</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Special Message</label>
+                        <textarea name="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-lk-primary focus:ring-2 focus:ring-lk-primary/20 outline-none transition-all" placeholder="Tell us about any special requirements..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-lk-accent text-white font-bold py-4 rounded-lg hover:bg-yellow-500 transition-all transform hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2">
+                        <span>Submit Booking Request</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-lk-primary font-bold tracking-wider uppercase text-sm">Get in Touch</span>
+                <h2 class="text-4xl font-serif font-bold text-gray-800 mt-2">Contact Us</h2>
+                <div class="w-24 h-1 bg-lk-accent mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Contact Info -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-lk-light p-6 rounded-xl">
+                        <div class="w-12 h-12 bg-lk-primary rounded-full flex items-center justify-center text-white mb-4">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Visit Us</h3>
+                        <p class="text-gray-600">123 Galle Road, Colombo 03<br>Sri Lanka</p>
+                    </div>
+
+                    <div class="bg-lk-light p-6 rounded-xl">
+                        <div class="w-12 h-12 bg-lk-primary rounded-full flex items-center justify-center text-white mb-4">
+                            <i class="fas fa-phone text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Call Us</h3>
+                        <p class="text-gray-600">+94 11 234 5678<br>+94 77 123 4567</p>
+                    </div>
+
+                    <div class="bg-lk-light p-6 rounded-xl">
+                        <div class="w-12 h-12 bg-lk-primary rounded-full flex items-center justify-center text-white mb-4">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">Email Us</h3>
+                        <p class="text-gray-600">info@lktours.com<br>bookings@lktours.com</p>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="lg:col-span-2">
+                    <div class="h-full min-h-[400px] rounded-xl overflow-hidden shadow-lg">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.798511757686!2d79.8486!3d6.9271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2593b3f6f3e47%3A0x2c3d7c5b8b8b8b8b!2sColombo%2C%20Sri%20Lanka!5e0!3m2!1sen!2sus!4v1234567890"
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            class="w-full h-full">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-10 h-10 bg-lk-accent rounded-full flex items-center justify-center text-white font-bold">
+                            <i class="fas fa-palm-tree"></i>
+                        </div>
+                        <span class="text-2xl font-serif font-bold">LK Tours</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Your trusted partner for exploring the beauty of Sri Lanka. We create unforgettable travel experiences.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-lk-primary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-lk-primary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-lk-primary transition-colors">
+                            <i class="fab fa-tripadvisor"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-lk-primary transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-lk-accent">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#tours" class="hover:text-white transition-colors">Tour Packages</a></li>
+                        <li><a href="#destinations" class="hover:text-white transition-colors">Destinations</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Tour Types -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-lk-accent">Tour Types</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Beach Tours</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Wildlife Safaris</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cultural Tours</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Adventure Tours</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Honeymoon Packages</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-lk-accent">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-4">Subscribe for travel tips and exclusive offers.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-lk-primary">
+                        <button type="submit" class="bg-lk-primary px-4 py-2 rounded-r-lg hover:bg-lk-secondary transition-colors">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">&copy; 2024 LK Tours. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Tour Data
+        const tours = [
+            {
+                id: 1,
+                title: "Beach Paradise",
+                category: "Beach Tours",
+                duration: "5 Days / 4 Nights",
+                price: "$599",
+                image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=800",
+                description: "Relax on pristine beaches with crystal clear waters",
+                features: ["Mirissa Beach", "Whale Watching", "Water Sports"]
+            },
+            {
+                id: 2,
+                title: "Wildlife Safari",
+                category: "Wildlife Tours",
+                duration: "4 Days / 3 Nights",
+                price: "$699",
+                image: "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800",
+                description: "Spot leopards and elephants in Yala National Park",
+                features: ["Yala Safari", "Elephant Orphanage", "Bird Watching"]
+            },
+            {
+                id: 3,
+                title: "Cultural Heritage",
+                category: "Cultural Tours",
+                duration: "7 Days / 6 Nights",
+                price: "$799",
+                image: "https://images.unsplash.com/photo-1562698013-ac58e88e9852?w=800",
+                description: "Explore ancient temples and UNESCO sites",
+                features: ["Sigiriya Rock", "Temple of Tooth", "Polonnaruwa"]
+            },
+            {
+                id: 4,
+                title: "Adventure Trek",
+                category: "Adventure Tours",
+                duration: "6 Days / 5 Nights",
+                price: "$649",
+                image: "https://images.unsplash.com/photo-1566075247408-439e8a78a83d?w=800",
+                description: "Hike through tea plantations and mountain trails",
+                features: ["Ella Rock", "Nine Arches", "Tea Factories"]
+            }
+        ];
+
+        // Destination Data
+        const destinations = [
+            {
+                name: "Sigiriya",
+                description: "Ancient rock fortress with stunning frescoes",
+                image: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800"
+            },
+            {
+                name: "Ella",
+                description: "Scenic hill country with famous train rides",
+                image: "https://images.unsplash.com/photo-1566075247408-439e8a78a83d?w=800"
+            },
+            {
+                name: "Yala National Park",
+                description: "Home to leopards and diverse wildlife",
+                image: "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800"
+            },
+            {
+                name: "Galle Fort",
+                description: "Colonial architecture and ocean views",
+                image: "https://images.unsplash.com/photo-1588258525932-2c111673a38b?w=800"
+            },
+            {
+                name: "Mirissa",
+                description: "Beautiful beaches and whale watching",
+                image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?w=800"
+            }
+        ];
+
+        // Render Tours
+        function renderTours() {
+            const grid = document.getElementById('tours-grid');
+            grid.innerHTML = tours.map(tour => `
+                <div class="card-hover bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 flex flex-col h-full">
+                    <div class="relative h-56 overflow-hidden img-zoom">
+                        <img src="${tour.image}" alt="${tour.title}" class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-lk-accent text-white px-3 py-1 rounded-full text-sm font-bold">
+                            ${tour.price}
+                        </div>
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-lk-primary">
+                            ${tour.category}
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-serif font-bold text-gray-800 mb-2">${tour.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4 flex-grow">${tour.description}</p>
+                        
+                        <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
+                            <i class="far fa-clock text-lk-primary"></i>
+                            <span>${tour.duration}</span>
+                        </div>
+
+                        <div class="space-y-2 mb-6">
+                            ${tour.features.map(f => `
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <i class="fas fa-check text-green-500"></i>
+                                    <span>${f}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <a href="#booking" class="w-full bg-lk-primary text-white text-center py-3 rounded-lg font-bold hover:bg-lk-dark transition-colors">
+                            Book Now
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Destinations Slider
+        let currentSlide = 0;
+        function renderDestinations() {
+            const slider = document.getElementById('destination-slider');
+            const dots = document.getElementById('slider-dots');
+            
+            slider.innerHTML = destinations.map(dest => `
+                <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                    <div class="relative rounded-xl overflow-hidden shadow-lg group h-80">
+                        <img src="${dest.image}" alt="${dest.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-serif font-bold mb-2">${dest.name}</h3>
+                            <p class="text-sm text-gray-200">${dest.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Create dots
+            const dotCount = Math.ceil(destinations.length / (window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1));
+            dots.innerHTML = Array(dotCount).fill(0).map((_, i) => `
+                <button onclick="goToSlide(${i})" class="w-3 h-3 rounded-full transition-all ${i === 0 ? 'bg-lk-primary w-8' : 'bg-gray-300'}"></button>
+            `).join('');
+        }
+
+        function moveSlider(direction) {
+            const itemsPerView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+            const maxSlide = Math.ceil(destinations.length / itemsPerView) - 1;
+            
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = maxSlide;
+            if (currentSlide > maxSlide) currentSlide = 0;
+            
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        function updateSlider() {
+            const slider = document.getElementById('destination-slider');
+            const itemsPerView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+            const translate = currentSlide * (100 / itemsPerView);
+            slider.style.transform = `translateX(-${translate}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('#slider-dots button');
+            dots.forEach((dot, i) => {
+                if (i === currentSlide) {
+                    dot.classList.remove('bg-gray-300', 'w-3');
+                    dot.classList.add('bg-lk-primary', 'w-8');
+                } else {
+                    dot.classList.remove('bg-lk-primary', 'w-8');
+                    dot.classList.add('bg-gray-300', 'w-3');
+                }
+            });
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Form Validation
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+
+            // Validate fields
+            const fields = ['name', 'email', 'phone', 'tour', 'people', 'date'];
+            
+            fields.forEach(field => {
+                const input = this.querySelector(`[name="${field}"]`);
+                const errorMsg = input.nextElementSibling;
+                
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    errorMsg.classList.add('show');
+                    isValid = false;
+                } else if (field === 'email' && !isValidEmail(input.value)) {
+                    input.classList.add('error');
+                    errorMsg.textContent = 'Please enter a valid email address';
+                    errorMsg.classList.add('show');
+                    isValid = false;
+                }
+            });
+
+            if (isValid) {
+                // Show success message
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    alert('Thank you for your booking request! We will contact you within 24 hours.');
+                    this.reset();
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTours();
+            renderDestinations();
+        });
+
+        // Handle resize for slider
+        window.addEventListener('resize', () => {
+            currentSlide = 0;
+            renderDestinations();
+        });
+    </script>
+</body>
+</html>
